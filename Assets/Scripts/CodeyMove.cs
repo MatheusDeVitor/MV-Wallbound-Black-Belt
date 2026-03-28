@@ -30,6 +30,15 @@ public class CodeyMove : MonoBehaviour
             rb.AddForce(move, ForceMode.VelocityChange);
 
             anim.SetBool("isRunning", move != Vector3.zero);
+             
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                Speed += 300;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                Speed -= 300;
+            }
         }
         
     }
