@@ -33,6 +33,6 @@ public class CameraBobbing : MonoBehaviour
             gameObject.transform.position = bufferPosition;
 
         }
-            Debug.Log(transform.position.y);
+            //Debug.Log(transform.position.y);
     }
 }
