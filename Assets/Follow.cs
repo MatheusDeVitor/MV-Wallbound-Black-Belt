@@ -1,20 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class Follow : MonoBehaviour
 {
-
-    public CollisionCheck collisionScript;
     public float rotateSpeed = 5f;
 
     private Transform player;
 
     private Rigidbody rb;
 
+    private float distance;
     
     public float speed;
+
+    public float chaseDistance;
 
     // Start is called before the first frame update
     void Start()
@@ -23,22 +25,24 @@ public class Follow : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
     }
-
     void Update()
-    {
-        if (collisionScript.canFollow)
-        {
-            
-                Debug.Log("e");
-                Vector3 direction = player.position - transform.position;
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+    {     
+         Debug.Log("e");
+         Vector3 direction = player.position - transform.position;
 
-                transform.position += speed * direction;
-            
+        Debug.Log(direction.magnitude);
+        
+        if (direction.magnitude <= chaseDistance)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+            transform.position += speed * direction.normalized;
+
         }
-        //rb.AddForce(direction * speed, ForceMode.VelocityChange);
+
     }
+        //rb.AddForce(direction * speed, ForceMode.VelocityChange);
+   
 
     /* private void OnCollisionEnter(Collision collision)
      {
