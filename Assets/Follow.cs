@@ -24,6 +24,7 @@ public class Follow : MonoBehaviour
         player = GameObject.Find("Codey").GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        rb.isKinematic = true;
     }
     void Update()
     {     
@@ -37,8 +38,15 @@ public class Follow : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
             transform.position += speed * direction.normalized;
+            rb.isKinematic = false;
 
         }
+        if (direction.magnitude > chaseDistance)
+        {
+            rb.isKinematic = true;
+        }
+
+
 
     }
         //rb.AddForce(direction * speed, ForceMode.VelocityChange);
