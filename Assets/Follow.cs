@@ -28,7 +28,6 @@ public class Follow : MonoBehaviour
     }
     void Update()
     {     
-         Debug.Log("e");
          Vector3 direction = player.position - transform.position;
 
         Debug.Log(direction.magnitude);
@@ -36,6 +35,8 @@ public class Follow : MonoBehaviour
         if (direction.magnitude <= chaseDistance)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
+            targetRotation.x = 0f;
+            targetRotation.z = 0f;
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
             transform.position += speed * direction.normalized;
             rb.isKinematic = false;
