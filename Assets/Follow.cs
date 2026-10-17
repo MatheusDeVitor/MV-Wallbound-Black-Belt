@@ -18,6 +18,8 @@ public class Follow : MonoBehaviour
 
     public float chaseDistance;
 
+    public bool isAttacked;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,9 +30,8 @@ public class Follow : MonoBehaviour
     }
     void Update()
     {     
-         Vector3 direction = player.position - transform.position;
+        Vector3 direction = player.position - transform.position;
 
-        Debug.Log(direction.magnitude);
         
         if (direction.magnitude <= chaseDistance)
         {
@@ -42,7 +43,7 @@ public class Follow : MonoBehaviour
             rb.isKinematic = false;
 
         }
-        if (direction.magnitude > chaseDistance)
+        if (direction.magnitude > chaseDistance && !isAttacked)
         {
             rb.isKinematic = true;
         }
@@ -50,9 +51,18 @@ public class Follow : MonoBehaviour
 
 
     }
-        //rb.AddForce(direction * speed, ForceMode.VelocityChange);
    
-
+    public void Attacked()
+    {
+        isAttacked = true;
+        rb.isKinematic = false;
+        Vector3 direction = player.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        targetRotation.x = 0f;
+        targetRotation.z = 0f;
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+    }
+        //rb.AddForce(direction * speed, ForceMode.VelocityChange);
     /* private void OnCollisionEnter(Collision collision)
      {
          if(collision.gameObject.tag == "Player")
