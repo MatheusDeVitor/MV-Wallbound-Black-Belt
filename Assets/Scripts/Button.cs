@@ -4,14 +4,27 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Button : MonoBehaviour
 {
+    int currentLevel = 0;
+
     // Start is called before the first frame update
-    public void NextLevel ()
+    public void NextLevel()
     {
-        SceneManager.LoadScene(1);
+        currentLevel++;
+        SceneManager.LoadScene(currentLevel);
     } 
 
     public void MainMenu ()
     {
         SceneManager.LoadScene(2);
+    }
+
+    public void LoadInfo()
+    {
+        SceneManager.LoadScene(3);
+    }
+
+    public void FirstLevel()
+    {
+        SceneManager.LoadScene(currentLevel);
     }
 }
