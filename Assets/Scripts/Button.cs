@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Button : MonoBehaviour
 {
-    int currentLevel = 0;
+    static int currentLevel = 2;
 
     // Start is called before the first frame update
     public void NextLevel()
@@ -13,18 +13,27 @@ public class Button : MonoBehaviour
         SceneManager.LoadScene(currentLevel);
     } 
 
-    public void MainMenu ()
+    public void MainMenu()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(0);
+        currentLevel++;
+        Debug.Log(currentLevel);
     }
+
+    public void back()
+    {
+        SceneManager.LoadScene(0);
+    }
+
 
     public void LoadInfo()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(1);
     }
 
     public void FirstLevel()
     {
+        Debug.Log(currentLevel);
         SceneManager.LoadScene(currentLevel);
     }
 }
