@@ -12,6 +12,7 @@ public class CodeyMove : MonoBehaviour
     public Vector3 move;
     public float _rotationSpeed = 50f;
     private Rigidbody rb;
+    public GameObject DieScreen;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -49,7 +50,7 @@ public class CodeyMove : MonoBehaviour
     {
         if (collision.gameObject.tag == "Skeleton")
         {
-            SceneManager.LoadScene(0);
+            DieScreen.SetActive(true);
         }
     }
 }
